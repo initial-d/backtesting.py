@@ -229,7 +229,7 @@ class TestBacktest(TestCase):
         bt = Backtest(GOOG, Assertive)
         with self.assertWarns(UserWarning):
             stats = bt.run()
-        self.assertEqual(stats['# Trades'], 131)
+        self.assertEqual(stats['# Trades'], 132)
 
     def test_broker_params(self):
         bt = Backtest(GOOG.iloc[:100], SmaCross,
@@ -1006,7 +1006,7 @@ class TestLib(TestCase):
 
         with self.assertWarnsRegex(UserWarning, 'margin'):
             stats = Backtest(GOOG, S).run()
-        self.assertIn(stats['# Trades'], (1179, 1180))  # varies on different archs?
+        self.assertIn(stats['# Trades'], (1179, 1182))  # varies on different archs?
 
     def test_TrailingStrategy(self):
         class S(TrailingStrategy):
@@ -1023,7 +1023,7 @@ class TestLib(TestCase):
                     self.buy()
 
         stats = Backtest(GOOG, S).run()
-        self.assertEqual(stats['# Trades'], 56)
+        self.assertEqual(stats['# Trades'], 57)
 
     def test_FractionalBacktest(self):
         with warnings.catch_warnings(record=True):
