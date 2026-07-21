@@ -1026,10 +1026,9 @@ class TestLib(TestCase):
         self.assertEqual(stats['# Trades'], 57)
 
     def test_FractionalBacktest(self):
-        with warnings.catch_warnings(record=True):
-            warnings.filterwarnings('ignore', message='frac')
-            ubtc_bt = FractionalBacktest(BTCUSD['2015':], SmaCross, fractional_unit=1 / 1e6, cash=100)
-        stats = ubtc_bt.run(fast=2, slow=3)
+        ubtc_bt = FractionalBacktest(BTCUSD['2015':], SmaCross, fractional_unit=1 / 1e6, cash=100)
+        with self.assertWarns(UserWarning):
+            stats = ubtc_bt.run(fast=2, slow=3)
         self.assertEqual(stats['# Trades'], 41)
         trades = stats['_trades']
         self.assertEqual(len(trades), 41)
